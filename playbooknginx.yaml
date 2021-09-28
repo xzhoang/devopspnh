@@ -4,17 +4,18 @@
   become_user: root
   tasks:
     - name: Install nginx
-      apt:
+      yum:
         name: nginx
         state: present
         update_cache: true
-      notify: Start nginx
-handlers:
-  - name: Start nginx
-    service:
-      name: nginx
-      state: restarted
-    shell: uptime
-    register: command_output
-  - debug:
-    var: command_output.stdout_lines
+      notify: show uptime
+  handlers:
+    - name: Start nginx
+      service:
+        name: nginx
+        state: restarted
+    - name: show uptime
+      shell: uptime
+      register: command_output
+    - debug:
+        var: command_output.stdout_lines
