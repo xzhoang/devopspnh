@@ -8,14 +8,13 @@
         name: nginx
         state: present
         update_cache: true
-      notify: show uptime
+      notify:
+        - Start nginx  
   handlers:
     - name: Start nginx
-      service:
-        name: nginx
-        state: restarted
-    - name: show uptime
-      shell: uptime
-      register: command_output
-    - debug:
-        var: command_output.stdout_lines
+      #service:
+      #  name: nginx
+      #  state: restarted
+      debug: msg="Handler is running"
+
+#handler chi chay khi tasks= changed
