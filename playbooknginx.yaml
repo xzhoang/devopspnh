@@ -8,4 +8,13 @@
         name: nginx
         state: present
         update_cache: true
-
+      notify: Start nginx
+handlers:
+  - name: Start nginx
+    service:
+      name: nginx
+      state: restarted
+    shell: uptime
+    register: command_output
+  - debug:
+    var: command_output.stdout_lines
